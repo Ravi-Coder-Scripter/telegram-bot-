@@ -55,17 +55,17 @@ def execute_command(message):
 
         response = ""
         if output:
-            response += f"📤 *Output:*\n```\n{output}\n```\n"
+            response += f"📤 Output:\n{output}\n"
         if error:
-            response += f"⚠️ *Error:*\n```\n{error}\n```\n"
+            response += f"⚠️ Error:\n{error}\n"
         if not response:
             response = "✅ Command executed successfully (No output)."
 
         # Telegram ki 4096 character limit handle karne ke liye
         if len(response) > 4000:
-            bot.reply_to(message, response[:4000], parse_mode="Markdown")
+            bot.reply_to(message, response[:4000])
         else:
-            bot.reply_to(message, response, parse_mode="Markdown")
+            bot.reply_to(message, response)
 
     except subprocess.TimeoutExpired:
         bot.reply_to(message, "❌ Error: Command execution timed out (30 seconds).")
