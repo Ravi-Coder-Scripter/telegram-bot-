@@ -2,7 +2,7 @@ import subprocess
 import telebot
 
 # ⚠️ YAHAN APNI DETAILS BHREIN
-BOT_TOKEN = "8849774335:AAH_wXgWbYOlxekvhtsWV4J8q6v8p3UVDpA"  # @BotFather se mila hua token
+BOT_TOKEN = "8852862302:AAEdrxcnG_MzP_KyCAB_UKwHvGtQ1BvnY7c"  # @BotFather se mila hua token
 ADMIN_ID = 5638370016  # @userinfobot se mili hui aapki Telegram numeric ID
 
 bot = telebot.TeleBot(BOT_TOKEN)
