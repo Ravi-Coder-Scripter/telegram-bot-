@@ -1,9 +1,19 @@
+import os
 import subprocess
 import telebot
+from dotenv import load_dotenv
 
-# ⚠️ YAHAN APNI DETAILS BHREIN
-BOT_TOKEN = "8852862302:AAEdrxcnG_MzP_KyCAB_UKwHvGtQ1BvnY7c"  # @BotFather se mila hua token
-ADMIN_ID = 5638370016  # @userinfobot se mili hui aapki Telegram numeric ID
+# .env file se variables load karne ke liye
+load_dotenv()
+
+# Environment variables se values retrieve karna
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+# Admin ID integer me convert karna zaroori hai comparison ke liye
+ADMIN_ID = int(os.getenv("ADMIN_ID", 0))
+
+# Security Check: Agar values .env me missing hain toh alert karein
+if not BOT_TOKEN or not ADMIN_ID:
+    raise ValueError("❌ Missing BOT_TOKEN or ADMIN_ID in .env file!")
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -12,7 +22,9 @@ bot = telebot.TeleBot(BOT_TOKEN)
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
     if message.from_user.id != ADMIN_ID:
-        bot.reply_to(message, "❌ Aapke paas is bot ko use karne ki permission nahi hai.")
+        bot.reply_to(
+            message, "❌ Aapke paas is bot ko use karne ki permission nahi hai."
+        )
         return
 
     bot.reply_to(
@@ -68,7 +80,9 @@ def execute_command(message):
             bot.reply_to(message, response)
 
     except subprocess.TimeoutExpired:
-        bot.reply_to(message, "❌ Error: Command execution timed out (30 seconds).")
+        bot.reply_to(
+            message, "❌ Error: Command execution timed out (30 seconds)."
+        )
     except Exception as e:
         bot.reply_to(message, f"❌ Unexpected Error: {str(e)}")
 
